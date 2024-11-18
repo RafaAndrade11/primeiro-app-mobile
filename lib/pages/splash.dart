@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:primeiroapp/widgets/animatedlogo.dart';
 
+//Responsabilidades: contagem de tempo e navegação para o home
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -24,10 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
         body: Center(
-          child: Container(),
+          child: AnimatedSplashLogo(),
           ),
           ));
   }
