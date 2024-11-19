@@ -15,8 +15,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.6.6
   flutter_launcher_icons: ^0.14.1
-  
- 
+  firebase_auth: ^5.3.3
+  firebase_core: ^3.8.0
+  flutter_auth_ui: ^4.0.1
+  firebase_ui_auth: ^1.16.0
 
 dev_dependencies:
   flutter_test:

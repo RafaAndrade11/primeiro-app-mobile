@@ -65,8 +65,8 @@ class _AnimatedSplashLogoState extends State<AnimatedSplashLogo>
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.blue,
-                  Colors.blue.withOpacity(0.5),
+                  Colors.grey,
+                  Colors.grey.withOpacity(0.5),
                 ],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -80,12 +80,12 @@ class _AnimatedSplashLogoState extends State<AnimatedSplashLogo>
                   ? []
                   : [
                       const BoxShadow(
-                        color: Colors.blue,
+                        color: Colors.grey,
                         blurRadius: 18,
                         spreadRadius: 9,
                       ),
                       BoxShadow(
-                        color: Colors.blue.withOpacity(0.5),
+                        color: Colors.grey.withOpacity(0.5),
                         blurRadius: 18,
                         spreadRadius: 9,
                       ),

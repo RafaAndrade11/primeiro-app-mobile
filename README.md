@@ -2,15 +2,14 @@
 
 ## Tópicos
 
-### Qual framework será utilizado para construir os módulos da aplicação?
+### Dependências
 
-- GetX
+- get
     - Navegação de telas
     - Gerenciamento de dependencias (bind e controllers)
     - Observers e Gerenciamento de Estado
-- FlutterModular
-- Bloc
-- Provider
+
+- firebase_auth
 
 ### Launcher Icons
 
@@ -26,5 +25,11 @@
 
     - Tela de inicialização dos aplicativos (geralmente tem a logo da empresa ou do app)
 
+### Autenticação
+    
+    - Comunica com um servidor externo para realizar a autenticação
+    - Identificação do usuário e redirecionamento para as funcionalidades
+
+### Home Screen
 
 ### Flavers
