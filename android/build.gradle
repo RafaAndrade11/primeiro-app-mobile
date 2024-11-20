@@ -1,3 +1,16 @@
+// Adiciona o plugin Gradle para Android
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2' // Verifique se é a versão mais recente
+        classpath 'com.google.gms:google-services:4.4.0' // Caso use Firebase
+    }
+}
+
+// Configura os repositórios globais
 allprojects {
     repositories {
         google()
@@ -5,6 +18,7 @@ allprojects {
     }
 }
 
+// Define os diretórios de build
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
@@ -13,6 +27,7 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+// Tarefa para limpar builds antigos
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
