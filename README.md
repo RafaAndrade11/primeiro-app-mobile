@@ -1,5 +1,13 @@
 # primeiroapp
 
+## Funcionalidades
+
+    - Login
+    - Cadastro
+    - Recuperar Senha
+    - Redirecionamento para tela principal do app
+    - Armazenar os usuários e acessos no painel do Firebase
+
 ## Tópicos
 
 ### Dependências
@@ -9,7 +17,13 @@
     - Gerenciamento de dependencias (bind e controllers)
     - Observers e Gerenciamento de Estado
 
-- firebase_auth
+- Firebase related
+    - firebase_auth: ^5.3.3
+    - firebase_core: ^3.8.0
+    - firebase_ui_auth: ^1.16.0
+    - firebase_ui_localizations: ^1.13.0
+
+- Formatação: 
 
 ### Launcher Icons
 

@@ -1,11 +1,14 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:primeiroapp/binds/counter.dart';
 import 'package:primeiroapp/firebase_options.dart';
-import 'package:primeiroapp/pages/AuthPage.dart';
+import 'package:primeiroapp/i10/auth.dart';
+import 'package:primeiroapp/pages/auth.dart';
 import 'package:primeiroapp/pages/home.dart';
 import 'package:primeiroapp/pages/second.dart';
 import 'package:primeiroapp/pages/splash.dart';
@@ -16,8 +19,10 @@ late final FirebaseApp app;
 late final FirebaseAuth auth;
 
 Future<void> main() async{
+  await initializeDateFormatting('pt BR', null); //inicializando app em portugues br
+
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -32,6 +37,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      localizationsDelegates: [
+        FirebaseUILocalizations.withDefaultOverrides(const LabelOverrides()),
+        FirebaseUILocalizations.delegate,
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
