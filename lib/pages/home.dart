@@ -9,7 +9,21 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<Controller>();
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("counter"))),
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.menu),
+        onPressed: () {
+          //Ação ao pressionar o ícone de menu
+        },
+        ),
+        title: const Center(child: Text("App", textAlign: TextAlign.center)),
+        actions: <Widget>[
+          IconButton(icon: const Icon(Icons.account_circle),
+          onPressed: () {
+            Get.toNamed('/profile');
+          },
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -18,12 +32,6 @@ class Home extends StatelessWidget {
                   'clicks: ${controller.count}',
                   style: const TextStyle(fontSize: 24),
                 )),
-            ElevatedButton(
-              child: const Text('Next Route'),
-              onPressed: () {
-                Get.toNamed('/second');
-              },
-            ),
           ],
         ),
       ),

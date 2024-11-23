@@ -10,7 +10,7 @@ import 'package:primeiroapp/firebase_options.dart';
 import 'package:primeiroapp/i10/auth.dart';
 import 'package:primeiroapp/pages/auth.dart';
 import 'package:primeiroapp/pages/home.dart';
-import 'package:primeiroapp/pages/second.dart';
+import 'package:primeiroapp/pages/profile.dart';
 import 'package:primeiroapp/pages/splash.dart';
 
 bool shouldUseFirebaseEmulator = false;
@@ -63,8 +63,8 @@ class MyApp extends StatelessWidget {
           binding: SampleBind(),
         ),
         GetPage(
-          name: '/second',
-          page: () => const Second(),
+          name: '/profile',
+          page: () => const Profile(),
           binding: SampleBind(),
         ),
       ],
