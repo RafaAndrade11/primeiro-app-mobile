@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:primeiroapp/binds/counter.dart';
 import 'package:primeiroapp/firebase_options.dart';
@@ -26,6 +27,9 @@ Future<void> main() async{
   app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await GetStorage.init();
+
   auth = FirebaseAuth.instanceFor(app: app);
 
   runApp(const MyApp());
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
         FirebaseUILocalizations.withDefaultOverrides(const LabelOverrides()),
         FirebaseUILocalizations.delegate,
       ],
-      title: 'Flutter Demo',
+      title: 'Flutter Demo App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,

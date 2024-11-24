@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
@@ -15,6 +17,48 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   XFile? _image;
   Uint8List? _imageBytes;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() async {
+    await loadLocalImage();
+    });
+  }
+
+  
+
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> setImage(XFile image) async {
+    final bytes = await image.readAsBytes();
+                    setState(() {
+                       _image = image;
+                       _imageBytes = bytes;
+                     });
+
+    await saveLocalImage(base64Encode(_imageBytes!));
+  }
+
+  Future<void> saveLocalImage(String value) async {
+    GetStorage box = GetStorage();
+    box.write('userImageProfile', value);
+  }
+  
+  Future<void> loadLocalImage() async {
+    GetStorage box = GetStorage();
+    final String? value = box.read('userImageProfile');
+    if (value != null) {
+      setState(() {
+        _imageBytes = base64Decode(value);
+      });
+    }
+  }
 
   Future<void> _showImageSourceDialog() async {
     final ImagePicker picker = ImagePicker();
@@ -34,11 +78,7 @@ class _ProfileState extends State<Profile> {
                     final XFile? photo =
                         await picker.pickImage(source: ImageSource.camera);
                     if (photo != null) {
-                      final bytes = await photo.readAsBytes();
-                      setState(() {
-                        _image = photo;
-                        _imageBytes = bytes;
-                      });
+                      await setImage(photo);
                     }
                   },
                   child: const SizedBox(
@@ -63,11 +103,7 @@ class _ProfileState extends State<Profile> {
                     final XFile? photo =
                         await picker.pickImage(source: ImageSource.gallery);
                     if (photo != null) {
-                      final bytes = await photo.readAsBytes();
-                      setState(() {
-                        _image = photo;
-                        _imageBytes = bytes;
-                      });
+                      await setImage(photo);
                     }
                   },
                   child: const SizedBox(
@@ -98,7 +134,19 @@ class _ProfileState extends State<Profile> {
       body:  Center(child: ProfileScreen(
         avatar:IconButton(
           iconSize: 150,
-          icon: _image != null && _imageBytes != null ? Image.memory(_imageBytes!, width: 150, height: 150,): const Icon(Icons.account_circle),
+          icon: _imageBytes != null
+          ? Container(
+            width: 150,
+            height: 150,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: MemoryImage(_imageBytes!),
+              ),
+            ),
+          )
+          : const Icon(Icons.account_circle),
           onPressed: () async {
             await _showImageSourceDialog();
           },
