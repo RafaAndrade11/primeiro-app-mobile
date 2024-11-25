@@ -7,6 +7,7 @@
     - Recuperar Senha
     - Redirecionamento para tela principal do app
     - Armazenar os usuários e acessos no painel do Firebase
+    - Subir e restaurar imagem do perfil pela câmera ou pela galeria do app
 
 ## Tópicos
 
@@ -23,7 +24,10 @@
     - firebase_ui_auth: ^1.16.0
     - firebase_ui_localizations: ^1.13.0
 
+- image_picker: ^1.1.2
+
 - Formatação: 
+    intl: ^0.19.0
 
 ### Launcher Icons
 
@@ -43,6 +47,11 @@
     
     - Comunica com um servidor externo para realizar a autenticação
     - Identificação do usuário e redirecionamento para as funcionalidades
+    - Restaurar o usuário que já fez o login anteriormente na aplicação
+
+### Handle de imagens
+    - Subir as imagens e restaurar elas do storage
+ 
 
 ### Home Screen
 

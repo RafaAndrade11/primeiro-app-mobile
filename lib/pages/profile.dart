@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:primeiroapp/controllers/user.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -152,8 +153,9 @@ class _ProfileState extends State<Profile> {
           },
           ),
         actions: [
-        SignedOutAction((context) {
-          Get.offNamed('/auth');
+        SignedOutAction((context) async {
+          Get.find<UserController>().setUserToken = '';
+          await Get.offNamed('/auth');
         })
       ],)),
       );

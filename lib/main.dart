@@ -55,21 +55,21 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/auth',
           page: () => const Authpage(),
+          binding: UserBind(),
         ),
         GetPage(
           name: '/splash',
           page: () => const SplashScreen(),
-          binding: SampleBind(),
         ),
         GetPage(
           name: '/home',
           page: () => const Home(),
-          binding: SampleBind(),
+          binding: UserBind(),
         ),
         GetPage(
           name: '/profile',
           page: () => const Profile(),
-          binding: SampleBind(),
+          binding: UserBind(),
         ),
       ],
     );

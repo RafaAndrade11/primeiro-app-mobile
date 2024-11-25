@@ -1,9 +1,27 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:primeiroapp/controllers/user.dart';
 
-class Authpage extends StatelessWidget {
+class Authpage extends StatefulWidget {
   const Authpage({super.key});
+
+  @override
+  State<Authpage> createState() => _AuthpageState();
+}
+
+class _AuthpageState extends State<Authpage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() async {
+      final user = await Get.find<UserController>().getUser;
+      if(user != '') {
+        Get.offNamed('/home');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +33,8 @@ class Authpage extends StatelessWidget {
             providers: providers,
             //fazendo callbacks para mudar o estado para home ao logar e criar conta
             actions: [
-              AuthStateChangeAction<SignedIn>((context, state) {
+              AuthStateChangeAction<SignedIn>((context, state) async {
+                Get.find<UserController>().setUserToken = await state.user?.getIdToken();
                 Get.offNamed('/home');
               }),
               AuthStateChangeAction<UserCreated>((context, state) {

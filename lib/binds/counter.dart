@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:primeiroapp/controllers/counter.dart';
+import 'package:primeiroapp/controllers/user.dart';
 
-class SampleBind extends Bindings {
+class UserBind extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<Controller>(() => Controller());
+    Get.lazyPut<UserController>(() => UserController());
   }
 }

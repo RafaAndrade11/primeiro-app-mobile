@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:primeiroapp/controllers/counter.dart';
+import 'package:primeiroapp/controllers/user.dart';
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<Controller>();
+    Get.find<UserController>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.menu),
@@ -29,15 +30,11 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Obx(() => Text(
-                  'clicks: ${controller.count}',
+                  'clicks: ${UserController.count}',
                   style: const TextStyle(fontSize: 24),
                 )),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.increment(),
-        child: const Icon(Icons.add),
       ),
     );
   }
