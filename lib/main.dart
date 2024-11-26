@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false, //remove o icone de debug
       localizationsDelegates: [
         FirebaseUILocalizations.withDefaultOverrides(const LabelOverrides()),
         FirebaseUILocalizations.delegate,

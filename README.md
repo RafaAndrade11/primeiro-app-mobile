@@ -45,14 +45,16 @@
 
 ### Autenticação
     
-    - Comunica com um servidor externo para realizar a autenticação
+    - Comunica com um servidor externo para realizar a autenticação 
     - Identificação do usuário e redirecionamento para as funcionalidades
     - Restaurar o usuário que já fez o login anteriormente na aplicação
 
 ### Handle de imagens
+    
     - Subir as imagens e restaurar elas do storage
  
-
 ### Home Screen
+
+    - Funcionalidade principal do aplicativo: salvar as despesas mensais
 
 ### Flavers
