@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:primeiroapp/controllers/user.dart';
+import 'package:primeiroapp/models/monthly_expanses.dart';
 
 
 class Home extends StatefulWidget {
@@ -12,6 +13,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  List<MonthlyExpanses> monthly_expanses = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void showAddAcountDialog(BuildContext context) {
     final TextEditingController accountNameController = TextEditingController();
     final TextEditingController dueDateController = TextEditingController();
@@ -52,20 +61,28 @@ class _HomeState extends State<Home> {
             TextButton(
               child: const Text('Cancelar'),
               onPressed: () {
-                Navigator.of(context).pop();
+               Get.back();
               },
             ),
             TextButton(
               child: const Text('Salvar'),
               onPressed: () {
                 String accountName = accountNameController.text;
-                String dueDate = dueDateController.text;
-                String amount = amountController.text;
+                int? dueDate = int.tryParse(dueDateController.text);
+                double? amount = double.tryParse(amountController.text);
 
-                // Aqui você pode adicionar a lógica para salvar os dados
-                print('Conta: $accountName, Vencimento: $dueDate, Valor: $amount');
+                if(dueDate != null &&
+                  dueDate >= 1 &&
+                  dueDate <= 31 &&
+                  amount != null &&
+                  accountName.isNotEmpty) {
+                    monthly_expanses.add(MonthlyExpanses(id: '${DateTime.now().toString()}-$accountName',
+                     title: accountName,
+                      amount: amount,
+                       dueDate: dueDate));
+                  }
 
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
@@ -93,19 +110,41 @@ title: const Center(child: Text("Minhas Despesas", textAlign: TextAlign.center))
         ),
         ],
       ),
-      body: Center(
+      body: SafeArea(
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-           
-            Obx(() => Text(
-                  'clicks: ${UserController.count}',
-                  style: const TextStyle(fontSize: 24),
-                )),
+            if (monthly_expanses.isEmpty) 
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Nenhuma despesa cadastrada!',
+                  style: TextStyle(fontSize: 18),
+                ),
+              )
+            else 
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: monthly_expanses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final expense = monthly_expanses[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 5),
+                    child: ListTile(
+                      title: Text(expense.title),
+                      subtitle: Text(
+                        'Vencimento: ${expense.dueDate} - Valor: R\$ ${expense.amount.toStringAsFixed(2)}',
+                      ),
+                    ),
+                  );
+                },
+              ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+  }  
 }
-
