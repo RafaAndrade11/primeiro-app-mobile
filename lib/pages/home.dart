@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:primeiroapp/controllers/user.dart';
 import 'package:primeiroapp/models/monthly_expanses.dart';
-
+import 'package:primeiroapp/storage/expanses.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,12 +13,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-  List<MonthlyExpanses> monthly_expanses = [];
+   // ignore: non_constant_identifier_names
+   List<MonthlyExpanses> monthly_expanses = [];
 
   @override
   void initState() {
     super.initState();
+    _loadExpenses();
+  }
+
+  Future<void> _loadExpenses() async {
+    final expanses = await loadLocalExpenses();
+    setState(() {
+      monthly_expanses = expanses;
+    });
+  }
+
+  Future<void> _addExpense(MonthlyExpanses expense) async {
+    setState(() {
+      monthly_expanses.add(expense);
+    });
+    await saveLocalExpenses(monthly_expanses);
   }
 
   void showAddAcountDialog(BuildContext context) {
@@ -66,24 +81,24 @@ class _HomeState extends State<Home> {
             ),
             TextButton(
               child: const Text('Salvar'),
-              onPressed: () {
+              onPressed: () async {
                 String accountName = accountNameController.text;
                 int? dueDate = int.tryParse(dueDateController.text);
                 double? amount = double.tryParse(amountController.text);
 
-                if(dueDate != null &&
-                  dueDate >= 1 &&
-                  dueDate <= 31 &&
-                  amount != null &&
-                  accountName.isNotEmpty) {
-                    setState(() {
-                  monthly_expanses.add(MonthlyExpanses(
+                if (dueDate != null &&
+                    dueDate >= 1 &&
+                    dueDate <= 31 &&
+                    amount != null &&
+                    accountName.isNotEmpty) {
+                  final newExpense = MonthlyExpanses(
                     id: '${DateTime.now().toString()}-$accountName',
                     title: accountName,
                     amount: amount,
                     dueDate: dueDate,
-                  ));
-                });
+                  );
+                  await _addExpense(newExpense);  
+
                 Get.back();
               } else {
                 Get.back();
