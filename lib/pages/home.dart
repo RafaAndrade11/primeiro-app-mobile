@@ -76,20 +76,32 @@ class _HomeState extends State<Home> {
                   dueDate <= 31 &&
                   amount != null &&
                   accountName.isNotEmpty) {
-                    monthly_expanses.add(MonthlyExpanses(id: '${DateTime.now().toString()}-$accountName',
-                     title: accountName,
-                      amount: amount,
-                       dueDate: dueDate));
-                  }
-
+                    setState(() {
+                  monthly_expanses.add(MonthlyExpanses(
+                    id: '${DateTime.now().toString()}-$accountName',
+                    title: accountName,
+                    amount: amount,
+                    dueDate: dueDate,
+                  ));
+                });
                 Get.back();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+              } else {
+                Get.back();
+                Get.snackbar(
+                  'Erro',
+                  'Preencha todos os campos corretamente!',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
